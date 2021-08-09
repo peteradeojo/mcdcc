@@ -5,12 +5,12 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
-    "start": "sass -w assets/src/scss:public/css"
+		"start": "sass -w assets/src/scss:public/css"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"dependencies": {
-		"sass": "@latest"
+	"devDependencies": {
+		"sass": "^1.37.5"
 	}
 }
