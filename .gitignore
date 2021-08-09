@@ -1,5 +1,6 @@
 .env
 assets/src
 *.sql
+config.sql
 vendor
 node_modules
