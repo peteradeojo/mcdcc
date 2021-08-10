@@ -1,5 +1,7 @@
 <?php
 
+use Validator\Validator;
+
 require '../init.php';
 
 if (@$_GET['return'] === 'count') {
@@ -14,6 +16,21 @@ if (@$_GET['return'] === 'count') {
       break;
   }
 
+  exit();
+}
+
+if (@$_GET['data'] === 'new') {
+  $category = Validator::validateOptions($_GET['category'], ['per', 'anc', 'ped', 'fam']);
+  if ($category) {
+    $category = strtoupper($category);
+    $lastNumber = $db->select('patients', 'max(cardnumber) as number', "cardnumber LIKE '$category-%'")[0];
+    if ($lastNumber['number']) {
+      [$cat, $number, $date] = analyseCardNumber($lastNumber['number']);
+      echo json_encode(['data' => "$cat-$number$date"]);
+    } else {
+      echo json_encode(['data' => "$category-001" . date("my")]);
+    }
+  }
   exit();
 }
 

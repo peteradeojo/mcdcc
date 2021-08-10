@@ -18,8 +18,8 @@
 <body>
   <aside id="sidenav">
     <div class="container">
+      <p><a href="/">Home</a></p>
       <p>Welcome, <?= $user['firstname'] ?></p>
-      <p class="italics"><?= $user['post'] ?></p>
     </div>
   </aside>
   <main>
