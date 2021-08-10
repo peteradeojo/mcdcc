@@ -4,16 +4,51 @@ use Validator\Validator;
 
 require '../init.php';
 if ($_POST) {
-  foreach ($_POST as $key => $value) {
-    echo "$key: $value<br>";
-    $firstname = Validator::validateName($_POST['firstname']);
-    $lastname = Validator::validateName($_POST['lastname']);
-    $middlename = Validator::validateName($_POST['middlename']);
-  }
+  // foreach ($_POST as $key => $value) {
+  //   echo "$key, $value<br/>";
+  // }
+  // echo "<br><br>";
+  $firstname = Validator::validateName($_POST['firstname']);
+  $lastname = Validator::validateName($_POST['lastname']);
+  $middlename = Validator::validateName($_POST['middlename']);
+  $birthdate = Validator::validateDate($_POST['birthdate']);
+  $state = Validator::validateName($_POST['state']);
+  $email = Validator::validateEmail($_POST['email']);
+  $phone = Validator::validatePhone($_POST['phone']);
+  $zipcode = Validator::validateZipCode($_POST['zipcode']);
+  // $city = Validator::validateName($_POST['city']);
+  $street = Validator::validateName($_POST['street']);
+  $gender = Validator::validateOptions($_POST['gender'], ['1', '0']);
+  $cardnumber = Validator::validatePatientNumber($_POST['cardnumber']);
+  $religion = Validator::validateOptions($_POST['religion'], ['christianity', 'islam', 'other']);
+
+  $action = $db->multiInsert(
+    [
+      'patients' => [
+        'cardnumber' => "'$cardnumber'",
+        'firstname' => "'$firstname'",
+        'lastname' => "'$lastname'",
+        'phone' => "'$phone'",
+      ],
+      'patient_details' => [
+        'cardnumber' => "'$cardnumber'",
+        'email' => "'$email'",
+        'religion' => "'$religion'",
+        'state' => "'$state'",
+        'street' => "'$street'",
+        'zipcode' => "'$zipcode'",
+        'gender' => "'$gender'",
+        // 'city' => "'$city'",
+      ]
+    ]
+  );
+
+  // if ($a)
+  header("Location: /rec/patients.php");
   exit();
 }
 $title = 'New Record | MCDCC';
-$stylesheets = [];
+$stylesheets = ['https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css'];
 require '../assets/snippets/header.php';
 
 ?>
@@ -43,23 +78,21 @@ require '../assets/snippets/header.php';
     </div>
     <div class="form-group col-md-4">
       <label for="religion">Religion</label>
-      <select id="religion" class="form-control">
+      <select id="religion" class="form-control" placeholder="Pick a religion" data-type="selectize" name='religion'>
         <option value="christianity">Christian</option>
         <option value="islam">Islam</option>
         <option value="other">Other</option>
       </select>
     </div>
     <div class="form-group col-md-4">
-      <label for="state">State</label>
-      <input type="text" list="states" name="state" id="state" class="form-control">
-      <datalist id="states">
-        <option value="ekiti">Ekiti</option>
-      </datalist>
+      <label for="email">E-mail Address</label>
+      <input type="email" name="email" id="email" class="form-control">
     </div>
     <div class="form-group col-md-4">
-      <label for="city">City</label>
-      <input list="cities" class="form-control" id="city" name="city">
-      <datalist id="cities"></datalist>
+      <label for="state">State</label>
+      <select name="state" id="state" placeholder="Select a state" class="form-control" data-type="selectize">
+        <option value="ekiti">Ekiti</option>
+      </select>
     </div>
     <div class="form-group col-md-4">
       <label for="zipcode">Zip Code</label>
@@ -73,25 +106,22 @@ require '../assets/snippets/header.php';
       <label for="gender">Gender</label>
       <div class="form-check-inline">
         <label for="male">
-          <input type="radio" name="gender" id="male" class="form-check-input" checked> Male
+          <input type="radio" name="gender" id="male" value="1" class="form-check-input" checked> Male
         </label>
         <label for="female">
-          <input type="radio" name="gender" id="female" class="form-check-input"> Female
+          <input type="radio" name="gender" id="female" value="0" class="form-check-input"> Female
         </label>
       </div>
     </div>
     <div class="form-group col-md-6">
       <label for="category">Card Type</label>
-      <select name="category" id="category" class="form-control" required="required">
-        <option value="per">Personal Card</option>
-        <option value="anc">Antenatal Card</option>
-        <option value="fam">Family Card</option>
-        <option value="ped">Pediatrics Card</option>
+      <select name="category" id="category" required="required" class="form-control" placeholder="Select a category" data-type="selectize" data-src="/api/categories.php">
+        <!-- <option disabled selected></option> -->
       </select>
     </div>
     <div class="form-group col-md-6">
       <label for="cardnumber">Card Number</label>
-      <input type="text" name="cardnumber" id="cardnumber" class="form-control" readonly>
+      <input type="text" name="cardnumber" id="cardnumber" class="form-control" readonly required>
       <button type="button" class="btn btn-danger mt-1" id="generate-number">Generate Card Number</button>
     </div>
     <div class="form-group">
@@ -102,5 +132,5 @@ require '../assets/snippets/header.php';
 </div>
 <?php
 
-$scripts = ['/rec/main.js'];
+$scripts = ['https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js', '/rec/main.js'];
 require '../assets/snippets/footer.php';

@@ -72,8 +72,8 @@
 			generateNumberButton.addEventListener('click', async () => {
 				const category = document.querySelector('select#category').value;
 				try {
-					console.log(category);
-					const {data} = await get(
+					// console.log(category);
+					const { data } = await get(
 						`/api/patients.php?data=new&category=${category}`
 					);
 					document.querySelector('input#cardnumber').value = data;
@@ -81,4 +81,6 @@
 			});
 		} catch (error) {}
 	});
+
+	loadSelectize();
 })();
