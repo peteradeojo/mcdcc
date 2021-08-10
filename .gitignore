@@ -4,3 +4,4 @@ assets/src
 config.sql
 vendor
 node_modules
+*hash.txt
