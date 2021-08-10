@@ -6,9 +6,6 @@ class Validator
 {
   static function validateLogin()
   {
-    if (str_contains($_SERVER['SCRIPT_NAME'], '/api/')) {
-      return false;
-    }
     if (@!$_SESSION['login']) {
       $script_name = explode('/', $_SERVER['SCRIPT_NAME']);
       $script_name = end($script_name);
@@ -16,19 +13,26 @@ class Validator
         header("Location: /login.php");
       }
       if ($script_name == 'logout.php') {
-        return;
+        return false;
       }
     } else {
+      if (str_contains($_SERVER['SCRIPT_NAME'], '/api/')) {
+        return false;
+      }
       return true;
     }
   }
 
   static function redirectAuthorizedDomain(array $user)
   {
-    $filename = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . strtolower($user['officeid']);
-    // echo $filename;
+    $script_name = $_SERVER['SCRIPT_FILENAME'];
+    $userdomain = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . strtolower($user['officeid']);
+    $userdomain = str_replace('/', DIRECTORY_SEPARATOR, $userdomain);
+    $script_name = str_replace('/', DIRECTORY_SEPARATOR, $script_name);
+    // echo $script_name;
+    // echo $userdomain;
     // exit();
-    if (!str_starts_with($_SERVER['SCRIPT_FILENAME'], $filename)) {
+    if (!str_starts_with($script_name, $userdomain)) {
       header("Location: /{$user['officeid']}");
     }
   }
