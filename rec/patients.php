@@ -7,7 +7,15 @@ require '../assets/snippets/header.php';
 
 ?>
 <div class="container">
-  <h1>Patients</h1>
+  <div class="row">
+    <div class="s9">
+      <h1>Patients</h1>
+    </div>
+    <div class="s3">
+      <a href="/rec/addpatient.php" class="btn btn-dark">New Record</a>
+    </div>
+
+  </div>
   <table id="patients" class="table table-striped">
     <thead>
       <th></th>

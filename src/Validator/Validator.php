@@ -47,4 +47,21 @@ class Validator
     }
     return false;
   }
+
+  static function validateOptions($needle, array $haystack)
+  {
+    if (in_array($needle, $haystack)) {
+      return $needle;
+    }
+    return false;
+  }
+
+  static function validateName(string $string)
+  {
+  }
+
+  static private function sanitize($string)
+  {
+    
+  }
 }
