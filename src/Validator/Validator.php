@@ -25,7 +25,9 @@ class Validator
 
   static function redirectAuthorizedDomain(array $user)
   {
-    $filename = $_SERVER['DOCUMENT_ROOT'] . '/' . $user['officeid'];
+    $filename = $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . strtolower($user['officeid']);
+    // echo $filename;
+    // exit();
     if (!str_starts_with($_SERVER['SCRIPT_FILENAME'], $filename)) {
       header("Location: /{$user['officeid']}");
     }
@@ -50,18 +52,71 @@ class Validator
 
   static function validateOptions($needle, array $haystack)
   {
-    if (in_array($needle, $haystack)) {
+    if (in_array(strtolower($needle), $haystack)) {
       return $needle;
     }
     return false;
   }
 
+  /**
+   * @param {string} string
+   */
   static function validateName(string $string)
   {
+    $string = Validator::sanitize($string);
+    if (preg_match('/^[a-zA-Z -]{3,}$/', $string)) {
+      return $string;
+    }
+    return false;
+  }
+
+  static function validateDate(string $date)
+  {
+    $date = Validator::sanitize($date);
+    if (preg_match('/^((19|20)\d{2})-((0|1)\d)-((0|1|2|3)\d)$/', $date)) {
+      return $date;
+    }
+    return false;
+  }
+
+  static function validatePhone(string $number)
+  {
+    $number = Validator::sanitize($number);
+    if (preg_match('/^\d{11}$/', $number)) {
+      return $number;
+    }
+    return false;
+  }
+
+  static function validateZipCode(string $code)
+  {
+    $code = Validator::sanitize($code);
+    if (preg_match('/^\d{4,}$/', $code)) {
+      return $code;
+    }
+    return false;
+  }
+
+  static function validatePatientNumber(string $cardnum)
+  {
+    $cardnum = Validator::sanitize($cardnum);
+    if (preg_match('/^\S{3}-\d{7}$/', $cardnum)) {
+      return $cardnum;
+    }
+    return false;
+  }
+
+  static function validateEmail(string $email)
+  {
+    $email = Validator::sanitize($email);
+    if (preg_match('/^.+@.+\..+$/', $email)) {
+      return $email;
+    }
+    return false;
   }
 
   static private function sanitize($string)
   {
-    
+    return trim(htmlspecialchars(strip_tags($string)));
   }
 }

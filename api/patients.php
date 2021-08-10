@@ -20,12 +20,20 @@ if (@$_GET['return'] === 'count') {
 }
 
 if (@$_GET['data'] === 'new') {
-  $category = Validator::validateOptions($_GET['category'], ['per', 'anc', 'ped', 'fam']);
+  $category = Validator::validateOptions($_GET['category'], ['per', 'anc', 'ped', 'fam', 'fer']);
   if ($category) {
     $category = strtoupper($category);
     $lastNumber = $db->select('patients', 'max(cardnumber) as number', "cardnumber LIKE '$category-%'")[0];
     if ($lastNumber['number']) {
       [$cat, $number, $date] = analyseCardNumber($lastNumber['number']);
+      if ($date == date(('my'))) {
+        $number++;
+        if ($number < 10) $number = "00" . $number;
+        else if ($number < 100) $number = "0" . $number;
+      } else {
+        $number = "001";
+        $date = date('my');
+      }
       echo json_encode(['data' => "$cat-$number$date"]);
     } else {
       echo json_encode(['data' => "$category-001" . date("my")]);

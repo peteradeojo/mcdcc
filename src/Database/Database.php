@@ -147,7 +147,26 @@ class Database
     }
   }
 
-  function getError(){
+  function multiInsert(array $data)
+  {
+    $sql = [];
+    foreach ($data as $table => $info) {
+      if ($this->tableExists($table)) {
+        $sql[] = "INSERT INTO $table (" . join(',', array_keys($info)) . ") VALUES (" . join(',', array_values($info)) . ")";
+      }
+    }
+    $sql = join('; ', $sql);
+    // echo $sql;
+    // return;
+    $query = $this->cxn->multi_query($sql);
+    if ($query) {
+      return true;
+    }
+    return false;
+  }
+
+  function getError()
+  {
     return $this->cxn->error;
   }
 
