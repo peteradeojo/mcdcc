@@ -4,3 +4,4 @@ config.sql
 vendor
 node_modules
 *hash.txt
+*.sh
