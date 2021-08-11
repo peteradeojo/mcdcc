@@ -24,6 +24,17 @@
   </aside>
   <main>
     <div class="container" id="topbar">
+      <?php
+      $flash = flash('info');
+      if ($flash) {
+        echo <<<_
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            $flash
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        _;
+      }
+      ?>
       <div class="row">
         <div class="s9">
         </div>

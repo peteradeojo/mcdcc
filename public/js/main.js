@@ -1,47 +1,109 @@
 'use strict';
 
+/**
+ *
+ * @param {string} url The URL of the request
+ * @param {string} mode JSON/text/ the method used to parse the response
+ * @returns *
+ */
 const get = async (url, mode = 'json') => {
 	try {
 		const res = await fetch(url);
-		let data;
-		switch (mode) {
-			case 'text':
-				data = await res.text();
-				break;
-			default:
-				data = await res.json();
+		if (res.ok) {
+			let data;
+			switch (mode) {
+				case 'text':
+					data = await res.text();
+					break;
+				default:
+					data = await res.json();
+			}
+			return data;
 		}
-
-		// console.log(data);
-		return data;
 	} catch (error) {
 		console.error(error);
 	}
 };
 
+/**
+ *
+ * @param {string} url TheURL of the request
+ * @param {*} body The body of the request, recommended JSON.stringify
+ * @param {Object} headers Request Headers
+ * @param {*} mode JSON/text/ the method used to parse the response
+ * @returns
+ */
+const post = async (url, body, headers = {}, mode = 'json') => {
+	try {
+		const res = await fetch(url, { method: 'POST', body, headers });
+		if (res.ok) {
+			let data;
+			switch (mode) {
+				case 'text':
+					data = await res.text();
+					break;
+				default:
+					data = await res.json();
+			}
+			return data;
+		}
+	} catch (error) {
+		throw error;
+	}
+};
+
+/**
+ * Check in a patient to take vital signs
+ * @param {string} id
+ */
+const checkInForAppointment = async (id, date) => {
+	try {
+		const formdata = new FormData();
+		formdata.append('id', id);
+		formdata.append('date', date);
+		const data = await post(`/api/patients.php?data=check-in`, formdata);
+		console.log(data);
+	} catch (error) {
+		console.error(error);
+	} finally {
+		location.reload();
+	}
+};
+
+/**
+ * Insert string to the innerHTML of any html element
+ * @param {string} data
+ * @param {HTMLElement} destination
+ * @returns {undefined}
+ */
 const loadIntoPlace = (data, destination) => {
 	// console.log(data);
 	const dest = document.querySelector(destination);
 	dest.innerHTML = data;
 };
 
+/**
+ * Initiate Select inputs
+ */
 const loadSelectize = () => {
-	const selects = document.querySelectorAll('select[data-src]');
+	const selects = document.querySelectorAll("select[data-type='selectize']");
 
 	selects.forEach((sel) => {
 		const url = sel.getAttribute('data-src');
 		(async () => {
 			try {
-				const { data } = await get(url);
-				data.forEach((opt) => {
-					let option = document.createElement('option');
-					option.value = opt.value;
-					option.innerHTML = opt.title;
-					sel.appendChild(option);
-					// console.log(sel);
-				});
-				$("select[data-type='selectize']").selectize();
+				if (url) {
+					const { data } = await get(url);
+					data.forEach((opt) => {
+						let option = document.createElement('option');
+						option.value = opt.value;
+						option.innerHTML = opt.title;
+						sel.appendChild(option);
+						// console.log(sel);
+					});
+				}
 			} catch (error) {}
+			$("select[data-type='selectize']").selectize();
 		})();
 	});
 };

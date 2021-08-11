@@ -1,5 +1,4 @@
 .env
-assets/src
 *.sql
 config.sql
 vendor
