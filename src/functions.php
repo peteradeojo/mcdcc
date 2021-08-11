@@ -7,6 +7,10 @@ function generateName($firstname, $lastname, $middlename = null)
 }
 
 
+/**
+ * A function to analyse and identify different portions of a patients card
+ * number. resolve into separate parts
+ */
 function analyseCardNumber($number)
 {
   $number = explode('-', $number);
@@ -17,4 +21,27 @@ function analyseCardNumber($number)
   $date = $analysed[2];
   // $id += 1;
   return [$cat, $id, $date];
+}
+
+/**
+ * flash - function to set flash and retrieve variables
+ */
+function flash($mode, $data = null)
+{
+  if (!$data) {
+    $return = @$_SESSION[$mode];
+    unset($_SESSION[$mode]);
+    return $return;
+  } else {
+    $_SESSION[$mode] = $data;
+  }
+}
+
+
+/**
+ * Generate time/date according to format
+ */
+function generateTime(string $format = 'Y-m-d H:i:s')
+{
+  return date($format);
 }

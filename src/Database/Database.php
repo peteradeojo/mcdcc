@@ -2,6 +2,7 @@
 
 namespace Database;
 
+use Exception;
 use mysqli;
 
 class Database
@@ -66,7 +67,7 @@ class Database
    * @param {string} table
    * @return array|bool
    */
-  function select(string $table, string $rows = null, string $where = null, int $limit = 100): array|false
+  function select(string $table, string $rows = null, string $where = null, array $orderby = null, int $limit = 100): array|false
   {
     if ($this->tableExists($table)) {
       if (!$rows) {
@@ -76,18 +77,19 @@ class Database
       if ($where) {
         $sql .= " WHERE $where";
       }
+      if ($orderby) {
+        $sql .= " ORDER BY ";
+        $sql .= join(', ', $orderby);
+      }
       $sql .= " LIMIT $limit;";
-
       $query = $this->cxn->query($sql);
       if ($query) {
         return $query->fetch_all(MYSQLI_ASSOC);
       } else {
-        echo $this->cxn->error;
-        return false;
+        throw new Exception($this->cxn->error);
       }
     } else {
-      echo $this->cxn->error;
-      return false;
+      throw new Exception($this->cxn->error);
     }
   }
 
@@ -141,9 +143,11 @@ class Database
       $query = $this->cxn->query($sql);
       if ($query and $this->cxn->affected_rows) {
         return true;
+      } else {
+        throw new Exception($this->cxn->error);
       }
-      echo $this->cxn->error;
-      return false;
+    } else {
+      throw new Exception("Table '$table' does not exist");
     }
   }
 
@@ -163,6 +167,50 @@ class Database
       return true;
     }
     return false;
+  }
+
+  function update(string $table, array $data, string $where)
+  {
+    if ($this->tableExists($table)) {
+      if (!$where) {
+        throw new Exception("Invalid where statement");
+      }
+      $sql = "UPDATE $table SET ";
+      $list = [];
+      foreach ($data as $k => $v) {
+        $list[] = "$k='$v'";
+      }
+      $sql .= join(', ', $list) . " WHERE $where;";
+
+      $query = $this->cxn->query($sql);
+      if ($query) {
+        return true;
+      } else {
+        throw new Exception($this->cxn->error, 101);
+      }
+    } else {
+      throw new Exception("Table '$table' does not exist");
+    }
+  }
+
+  /**
+   * Delete a record from database
+   * @param table
+   * @param where
+   */
+  function delete(string $table, string $where)
+  {
+    if ($this->tableExists($table)) {
+      // $where = $this->cxn->escape_string(htmlspecialchars(trim($where)));
+      $sql = "DELETE FROM $table WHERE $where";
+
+      $query = $this->cxn->query($sql);
+      if ($query) {
+        return true;
+      } else {
+        throw new Exception($this->cxn->error);
+      }
+    }
   }
 
   function getError()

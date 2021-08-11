@@ -473,4 +473,10 @@ tr.shown td.details-control {
   text-decoration: none;
 }
 
+span.label {
+  width: 60px;
+  display: inline-block;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=style.css.map */
