@@ -121,6 +121,24 @@ switch (@$_GET['data']) {
       echo json_encode(['error' => 'Invalid Parameters supplied']);
     }
     break;
+  case 'waitlist':
+    try {
+      //code...
+      $today = date('Y-m-d');
+      $waitlist = $db->join(table1: 'appointments', joins: [
+        ['inner', 'patients as p', 'appointments.patientid = p.cardnumber'],
+      ], where: "appointments.appointment_date >= '$today' and appointments.appointment_status = '1'");
+      $waitlist = array_map(function ($wait) {
+        $wait['date'] = $wait['appointment_date'];
+        $wait['status'] = parseAppointmentStatus($wait['appointment_status']);
+        return $wait;
+      }, $waitlist);
+
+      echo json_encode(['data' => $waitlist]);
+    } catch (Exception $e) {
+      echo json_encode(['error' => $e->getMessage()]);
+    }
+    break;
   default:
     $patients = $db->join('patients', [['right', 'patient_details as pd', 'patients.cardnumber = pd.cardnumber']]);
 

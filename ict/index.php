@@ -4,7 +4,7 @@ require '../init.php';
 
 $stylesheets = [];
 
-require '../assets/snippets/header.php';
+require '../snippets/header.php';
 
 ?>
 <div class="container">
@@ -28,4 +28,4 @@ require '../assets/snippets/header.php';
 <?php
 
 $scripts = [];
-require '../assets/snippets/footer.php';
+require '../snippets/footer.php';

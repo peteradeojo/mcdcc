@@ -41,7 +41,7 @@ if ($_POST) {
   exit();
 }
 
-require '../assets/snippets/header.php';
+require '../snippets/header.php';
 ?>
 <div class="container">
   <h1>New Staff</h1>
@@ -109,4 +109,4 @@ require '../assets/snippets/header.php';
 <?php
 
 $scripts = ['/ict/main.js'];
-require '../assets/snippets/footer.php';
+require '../snippets/footer.php';

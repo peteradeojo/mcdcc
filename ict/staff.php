@@ -7,15 +7,15 @@ if (@$_GET['id']) {
   if (!$_POST) {
     $id = $_GET['id'];
     $staff = $db->select('staff', null, "id='$id'")[0];
-    require '../assets/snippets/header.php';
+    require '../snippets/header.php';
     require './onestaff.php';
-    require '../assets/snippets/footer.php';
+    require '../snippets/footer.php';
   } else {
     echo "POSTED";
   }
 } else {
   $stylesheets = [];
-  require '../assets/snippets/header.php';
+  require '../snippets/header.php';
 ?>
 
   <div class="container">
@@ -42,4 +42,4 @@ if (@$_GET['id']) {
 <?php
 }
 $scripts = ['/ict/main.js'];
-require '../assets/snippets/footer.php';
+require '../snippets/footer.php';
