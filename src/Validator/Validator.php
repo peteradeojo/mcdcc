@@ -119,7 +119,7 @@ class Validator
     return false;
   }
 
-  static private function sanitize($string)
+  static function sanitize($string)
   {
     return trim(htmlspecialchars(strip_tags($string)));
   }

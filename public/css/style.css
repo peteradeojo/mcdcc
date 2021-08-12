@@ -470,6 +470,7 @@ tr.shown td.details-control {
 
 span.label {
   width: 60px;
+  margin-right: 10px;
   display: inline-block;
   font-weight: bold;
 }

@@ -95,7 +95,7 @@ class Database
 
   /**
    * @function join
-   * @param
+   * @param {}
    * @return array|bool
    */
   function join(string $table1, array $joins, string $rows = null, string $where = null, int $limit = 100): array|false
@@ -137,8 +137,15 @@ class Database
         return false;
       }
 
+      $rowval = array_map(function ($rv) {
+        $rv = "'$rv'";
+        return $rv;
+      }, $rowval);
+
       $sql = "INSERT INTO $table (" . join(",", array_keys($rowval)) . ") VALUES(" . join(", ", array_values($rowval)) . ")";
       // echo $sql;
+      // echo json_encode($rowval);
+      // exit();
 
       $query = $this->cxn->query($sql);
       if ($query and $this->cxn->affected_rows) {
