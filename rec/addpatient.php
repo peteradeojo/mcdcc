@@ -115,8 +115,13 @@ require '../assets/snippets/header.php';
     </div>
     <div class="form-group col-md-6">
       <label for="category">Card Type</label>
-      <select name="category" id="category" required="required" class="form-control" placeholder="Select a category" data-type="selectize" data-src="/api/categories.php">
-        <!-- <option disabled selected></option> -->
+      <select name="category" id="category" required class="form-control" data-type="selectize"  placeholder="Select a category">
+        <?php
+          $categories = $db->select('cards');
+          foreach($categories as $card) {
+            echo "<option value='$card[code]'>$card[title]</option>";
+          }
+        ?>
       </select>
     </div>
     <div class="form-group col-md-6">
@@ -132,5 +137,5 @@ require '../assets/snippets/header.php';
 </div>
 <?php
 
-$scripts = ['https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js', '/rec/main.js'];
+$scripts = ['/rec/main.js'];
 require '../assets/snippets/footer.php';

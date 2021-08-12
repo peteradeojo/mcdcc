@@ -81,31 +81,3 @@ const loadIntoPlace = (data, destination) => {
 	const dest = document.querySelector(destination);
 	dest.innerHTML = data;
 };
-
-/**
- * Initiate Select inputs
- */
-const loadSelectize = () => {
-	const selects = document.querySelectorAll("select[data-type='selectize']");
-
-	selects.forEach((sel) => {
-		const url = sel.getAttribute('data-src');
-		(async () => {
-			try {
-				if (url) {
-					const { data } = await get(url);
-					data.forEach((opt) => {
-						let option = document.createElement('option');
-						option.value = opt.value;
-						option.innerHTML = opt.title;
-						sel.appendChild(option);
-						// console.log(sel);
-					});
-				}
-			} catch (error) {}
-			$("select[data-type='selectize']").selectize();
-		})();
-	});
-};
-
-loadSelectize();
