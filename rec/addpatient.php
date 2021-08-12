@@ -49,7 +49,7 @@ if ($_POST) {
 }
 $title = 'New Record | MCDCC';
 $stylesheets = ['https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css'];
-require '../assets/snippets/header.php';
+require '../snippets/header.php';
 
 ?>
 <div class="container">
@@ -138,4 +138,4 @@ require '../assets/snippets/header.php';
 <?php
 
 $scripts = ['/rec/main.js'];
-require '../assets/snippets/footer.php';
+require '../snippets/footer.php';

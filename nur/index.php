@@ -2,7 +2,7 @@
 
 require '../init.php';
 
-require '../assets/snippets/header.php';
+require '../snippets/header.php';
 ?>
 <div class="container">
   <h1>Dashboard</h1>
@@ -28,4 +28,4 @@ require '../assets/snippets/header.php';
 </div>
 <?php
 $scripts = ['/nur/main.js'];
-require '../assets/snippets/footer.php';
+require '../snippets/footer.php';

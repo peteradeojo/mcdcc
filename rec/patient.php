@@ -54,7 +54,7 @@ $patient['name'] = "$patient[lastname] $patient[firstname]";
 $title = $patient['name'];
 
 $stylesheets = ['https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/css/selectize.bootstrap4.min.css'];
-require '../assets/snippets/header.php';
+require '../snippets/header.php';
 
 ?>
 <div class="container-fluid">
@@ -171,4 +171,4 @@ require '../assets/snippets/header.php';
 </div>
 <?php
 $scripts = ['https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js', '/rec/main.js'];
-require '../assets/snippets/footer.php';
+require '../snippets/footer.php';

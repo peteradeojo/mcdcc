@@ -6,7 +6,7 @@ require '../init.php';
 
 
 $stylesheets = [];
-require '../assets/snippets/header.php';
+require '../snippets/header.php';
 
 
 ?>
@@ -45,4 +45,4 @@ require '../assets/snippets/header.php';
 <?php
 
 $scripts = ['/rec/main.js'];
-require '../assets/snippets/footer.php';
+require '../snippets/footer.php';

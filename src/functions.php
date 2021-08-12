@@ -53,3 +53,26 @@ function generateTime(string $format = 'Y-m-d H:i:s')
 //   $file = str_replace("\\", DIRECTORY_SEPARATOR, $file);
 //   return require $file;
 // }
+
+function parseAppointmentStatus(int $status)
+{
+  $result = '';
+  switch ($status) {
+    case 0:
+      $result = 'Pending';
+      break;
+    case 1:
+      $result = 'Waitlisted';
+      break;
+    case 2:
+      $result = 'Vitals Taken';
+      break;
+    case 2:
+      $result = 'Currently seeing a doctor';
+      break;
+    case 4:
+      $result = 'Fulfilled';
+      break;
+  }
+  return $result;
+}

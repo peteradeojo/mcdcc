@@ -3,7 +3,7 @@
 require '../init.php';
 $stylesheets = ['//cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css'];
 
-require '../assets/snippets/header.php';
+require '../snippets/header.php';
 
 ?>
 <div class="container">
@@ -29,4 +29,4 @@ require '../assets/snippets/header.php';
 </div>
 <?php
 $scripts = ['/rec/main.js'];
-require_once '../assets/snippets/footer.php';
+require_once '../snippets/footer.php';
