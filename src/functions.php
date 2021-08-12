@@ -45,3 +45,11 @@ function generateTime(string $format = 'Y-m-d H:i:s')
 {
   return date($format);
 }
+
+// function loadSnippet(string $snippet) {
+//   // require 
+//   $file = $_SERVER['DOCUMENT_ROOT']. "/assets/snippets/$snippet";
+//   $file = str_replace("/", DIRECTORY_SEPARATOR, $file);
+//   $file = str_replace("\\", DIRECTORY_SEPARATOR, $file);
+//   return require $file;
+// }

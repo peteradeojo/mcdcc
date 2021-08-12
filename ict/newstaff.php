@@ -1,9 +1,43 @@
 <?php
 
+use Validator\Validator;
+
 require '../init.php';
 
 if ($_POST) {
-  echo json_encode([$_POST]);
+  $avail_offices = $db->select('offices', 'o_id as officeid');
+  $avail_offices = array_map(function ($office) {
+    return $office['officeid'];
+  }, $avail_offices);
+  $title = Validator::validateOptions($_POST['title'], ['mr.', 'mrs.', 'mr.', 'dr(mrs).']);
+  $email = Validator::validateEmail($_POST['email']);
+  $phone = Validator::validatePhone($_POST['phone']);
+  $firstname = Validator::validateName($_POST['firstname']);
+  $lastname = Validator::validateName($_POST['lastname']);
+  $officeid = Validator::validateOptions($_POST['officeid'], $avail_offices);
+  $username = Validator::validateUsername($_POST['username']);
+  $post = Validator::sanitize($_POST['post']);
+  $password = sha1(Validator::sanitize($_POST['password']));
+
+  try {
+    //code...
+    $db->insert('staff', [
+      'title' => $title,
+      'email' => $email,
+      'phone' => $phone,
+      'firstname' => $firstname,
+      'lastname' => $lastname,
+      'officeid' => $officeid,
+      'username' => $username,
+      'post' => $post,
+      'password' => $password,
+    ]);
+
+    echo json_encode(['ok' => true]);
+  } catch (Exception $th) {
+    echo json_encode(['error' => $th->getMessage()]);
+  }
+  // echo json_encode($_POST);
   exit();
 }
 
@@ -46,11 +80,11 @@ require '../assets/snippets/header.php';
         <label for="office">Office</label>
         <select name="officeid" id="office" class="form-control">
           <?php
-            $offices = $db->select('offices');
-            foreach ($offices as $office) {
-              # code...
-              echo "<option value='$office[o_id]'>$office[title]</option>";
-            }
+          $offices = $db->select('offices');
+          foreach ($offices as $office) {
+            # code...
+            echo "<option value='$office[o_id]'>$office[title]</option>";
+          }
           ?>
         </select>
       </div>

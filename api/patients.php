@@ -17,6 +17,10 @@ if (@$_GET['return'] === 'count') {
       $treatments = $db->select('treatments', 'count(cardnumber) as num')[0];
       echo json_encode(['data' => $treatments['num']]);
       break;
+    case 'waitlisted':
+      $today = date('Y-m-d');
+      $count = $db->select('appointments', 'count(id) as num', "appointment_date >= '$today' and appointment_status = '1'")[0];
+      echo json_encode(['data' => $count]);
   }
 
   exit();

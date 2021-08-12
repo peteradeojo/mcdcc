@@ -19,7 +19,7 @@ switch ($_GET['data']) {
       try {
         $check = $db->select('appointments', null, "patientid='$id' and appointment_date='$date'")[0];
         if (!$check) {
-          $db->insert('appointments', ['patientid' => "'$id'", 'appointment_date' => "'$date'"]);
+          $db->insert('appointments', ['patientid' => $id, 'appointment_date' => $date]);
         } else {
           flash('info', 'An appointment is already booked on this date for this patient');
         }
