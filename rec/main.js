@@ -20,16 +20,20 @@
 	}
 
 	document.addEventListener('DOMContentLoaded', async () => {
-		try {
-			const patientCount = await get(
-				'/api/patients.php?data=patients&return=count'
-			);
-			loadIntoPlace(patientCount.data, 'div h1#patients');
-			const treatmentCount = await get(
-				'/api/patients.php?data=treatments&return=count'
-			);
-			loadIntoPlace(treatmentCount.data, 'div h1#treatments');
-		} catch (error) {}
+		if (document.getElementById('patients')) {
+			try {
+				const patientCount = await get(
+					'/api/patients.php?data=patients&return=count'
+				);
+				loadIntoPlace(patientCount.data, 'div h1#patients');
+				const treatmentCount = await get(
+					'/api/patients.php?data=treatments&return=count'
+				);
+				loadIntoPlace(treatmentCount.data, 'div h1#treatments');
+			} catch (error) {
+				console.error(error);
+			}
+		}
 	});
 
 	document.addEventListener('DOMContentLoaded', () => {
@@ -112,7 +116,7 @@
 							</div>
 							<div class="col-3">
 								${
-									date.valueOf() === today.valueOf() && appointment.status == 0 
+									date.valueOf() === today.valueOf() && appointment.status == 0
 										? `<button class="btn btn-primary" onclick="checkInForAppointment('${id}', '${appointment.date}')">Check In</button>`
 										: ''
 									// `<button class="btn btn-primary" onclick="checkInForAppointment('${id}', '${appointment.date}')">Check In</button>`
@@ -130,4 +134,3 @@
 		}
 	});
 })();
-

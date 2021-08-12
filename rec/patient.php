@@ -170,5 +170,5 @@ require '../assets/snippets/header.php';
   </div>
 </div>
 <?php
-$scripts = ['https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js', '/rec/main.js'];
+$scripts = ['https://cdnjs.cloudflare.com/ajax/libs/qs/6.10.1/qs.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.13.3/js/standalone/selectize.min.js', '/rec/main.js'];
 require '../assets/snippets/footer.php';
