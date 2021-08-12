@@ -5,8 +5,10 @@
 <script src="//cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="/public/js/main.js"></script>
 <?php
-foreach ($scripts as $script) {
-  echo "<script src='$script'></script>";
+if (@$scripts) {
+  foreach ($scripts as $script) {
+    echo "<script src='$script'></script>";
+  }
 }
 ?>
 </body>
