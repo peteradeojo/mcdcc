@@ -24,9 +24,19 @@ $height = Validator::validateNumber($_POST['height']);
 $weight = Validator::validateNumber($_POST['weight']);
 $bp1 = Validator::validateNumber($_POST['bp1']);
 $bp2 = Validator::validateNumber($_POST['bp2']);
+$pr = Validator::validateNumber($_POST['pulse_rate']);
 $blood_pressure = "$bp1/$bp2";
 $filename = bin2hex(random_bytes(24)) . ".json";
-$data = ['patientid' => $patientid, 'height' => $weight, 'weight' => $weight, 'temp' => $temp, 'bp' => $blood_pressure, 'filename' => $filename, 'appointmentid' => $appointment['id']];
+$data = [
+  'patientid' => $patientid,
+  'height' => $weight,
+  'weight' => $weight,
+  'temp' => $temp,
+  'bp' => $blood_pressure,
+  'filename' => $filename,
+  'appointmentid' => $appointment['id'],
+  'pulse_rate' => $pr
+];
 
 
 

@@ -18,7 +18,7 @@ if (!$patient) {
   header("Location: /doc/waitlist.php");
 }
 
-$patient = $db->join(table1: 'appointments', joins: [['left', 'patients as p', 'appointments.patientid = p.cardnumber'], ['left', 'history as h', 'appointments.id= h.appointmentid']], where: "appointments.patientid = p.cardnumber and appointments.patientid = '$patient'")[0];
+$patient = $db->join(table1: 'appointments', joins: [['left', 'patients as p', 'appointments.patientid = p.cardnumber'], ['left', 'history as h', 'appointments.id= h.appointmentid']], where: "appointments.patientid = p.cardnumber and appointments.patientid = '$patient' and h.appointmentid = appointments.id", rows: 'appointments.id as appid, appointments.*, p.*, h.*')[0];
 
 if (!$patient) header("Location: /doc/waitlist.php");
 
@@ -26,6 +26,7 @@ if (!$patient) header("Location: /doc/waitlist.php");
 require '../snippets/header.php';
 ?>
 <div class="container">
+  <a href="/doc/waitlist.php">Back to waiting list</a>
   <div class="row">
     <div class="col-md-6">
       <h1><?= "$patient[lastname] $patient[firstname]" ?></h1>
@@ -41,7 +42,7 @@ require '../snippets/header.php';
     <div class="col-md-6">
       <?php
       $casenote = getPatientType($patient['cardnumber']);
-      require "$casenote-casenote.php";
+      require "casenotes/$casenote.php";
       ?>
     </div>
   </div>

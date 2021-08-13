@@ -30,7 +30,7 @@ require '../snippets/header.php';
   // echo "<br>";
   // print_r($patientsHistory);
   ?>
-  <form <?=$patientsHistory ? "" : "action='/nur/vitals.php'" ?> method="POST">
+  <form <?= $patientsHistory ? "" : "action='/nur/vitals.php'" ?> method="POST">
     <div class="form-group col-md-6">
       <input type="text" name="patient" id="patientid" class="form-control" readonly value="<?= $patient['cardnumber'] ?>">
     </div>
@@ -55,6 +55,10 @@ require '../snippets/header.php';
           <input type="number" name="bp2" id="bp2" class='form-control' value="<?= explode('/', @$patientsHistory['bp'])[1] ?>">
         </div>
       </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="pr">Pulse Rate (bpm)</label>
+      <input type="number" name="pulse_rate" id="pr" class="form-control" value="<?= $patientsHistory['pulse_rate'] ?>" required>
     </div>
     <div class="form-group col-md-6">
       <label for="height">Height (cm)</label>

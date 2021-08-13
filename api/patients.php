@@ -131,6 +131,7 @@ switch (@$_GET['data']) {
       $waitlist = array_map(function ($wait) {
         $wait['date'] = $wait['appointment_date'];
         $wait['status'] = parseAppointmentStatus($wait['appointment_status']);
+        $wait['name'] = generateName($wait);
         return $wait;
       }, $waitlist);
 
@@ -143,7 +144,7 @@ switch (@$_GET['data']) {
     $patients = $db->join('patients', [['right', 'patient_details as pd', 'patients.cardnumber = pd.cardnumber']]);
 
     $patients = array_map(function ($patient) {
-      $patient['name'] = generateName($patient['firstname'], $patient['lastname']);
+      $patient['name'] = generateName($patient);
       return $patient;
     }, $patients);
 

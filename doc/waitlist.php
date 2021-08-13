@@ -22,7 +22,7 @@ require '../snippets/header.php';
       $waitlist = $db->join('appointments', [['inner', 'patients as p', 'appointments.patientid = p.cardnumber'], ['right', 'history as h', 'h.patientid=appointments.patientid']], where: "appointments.appointment_date = '$today'");
       $waitlist = array_map(function ($wait) {
         $wait['status'] = parseAppointmentStatus($wait['appointment_status']);
-        $wait['name'] = generateName($wait['firstname'], lastname: $wait['lastname']);
+        $wait['name'] = generateName($wait);
         return $wait;
       }, $waitlist);
 

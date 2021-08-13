@@ -1,9 +1,9 @@
 <?php
 // Some useful functions to have
 
-function generateName($firstname, $lastname, $middlename = null)
+function generateName(array $data = null)
 {
-  return "$lastname $firstname $middlename";
+  return "$data[lastname] $data[firstname] $data[middlename]";
 }
 
 
@@ -87,4 +87,32 @@ function getPatientType(string $patientid)
 {
   $category = explode('-', $patientid);
   return strtolower($category[0]);
+}
+
+
+/**
+ * load and display Vitals in a list
+ */
+function showVitals($visit)
+{
+  echo <<<_
+    <div class="container">
+      <h3>Vital Signs</h3>
+      <ul class="list-group">
+        <li class="list-group-item">Temperature: $visit->temp (&deg;C)</li>
+        <li class="list-group-item">Weight: $visit->weight (kg)</li>
+        <li class="list-group-item">Blood Pressure: $visit->bp (mmHg)</li>
+        <li class="list-group-item">Pulse Rate: $visit->pulse_rate (bpm)</li>
+        <li class="list-group-item">Height: $visit->height (cm)</li>
+      </ul>
+    </div>
+  _;
+}
+
+function getPatientVisitData($filename)
+{
+  $visitFile = str_replace('/', DIRECTORY_SEPARATOR, $_SERVER['DOCUMENT_ROOT'] . '/confidential/patient_visits/' . $filename);
+
+  $visitData = json_decode(file_get_contents($visitFile));
+  return $visitData;
 }
