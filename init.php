@@ -15,6 +15,7 @@ $dotenv = Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 $db = new Database();
+$today = date('Y-m-d');
 
 @$user = $db->select('staff', null, "username='{$_SESSION['login']['user']}'")[0];
 @$user['name'] = generateName($user['firstname'], $user['lastname']);

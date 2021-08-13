@@ -73,6 +73,12 @@ function parseAppointmentStatus(int $status)
     case 4:
       $result = 'Fulfilled';
       break;
+    case 9:
+      $result = 'Unfulfilled';
+      break;
+    case 10:
+      $result = 'Rescheduled';
+      break;
   }
   return $result;
 }
