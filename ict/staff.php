@@ -1,17 +1,22 @@
 <?php
 
+use Validator\Validator;
+
 require '../init.php';
 
 
 if (@$_GET['id']) {
+  $id = Validator::validateNumber($_GET['id']);
+  if (!$id) {
+    header("Location: /ict");
+  }
+  $staff = $db->select('staff', null, "id='$id'")[0];
   if (!$_POST) {
-    $id = $_GET['id'];
-    $staff = $db->select('staff', null, "id='$id'")[0];
     require '../snippets/header.php';
     require './onestaff.php';
     require '../snippets/footer.php';
   } else {
-    echo "POSTED";
+    require 'process_staff.php';
   }
 } else {
   $stylesheets = [];
@@ -40,6 +45,6 @@ if (@$_GET['id']) {
   </div>
 
 <?php
+  $scripts = ['/ict/main.js'];
+  require '../snippets/footer.php';
 }
-$scripts = ['/ict/main.js'];
-require '../snippets/footer.php';

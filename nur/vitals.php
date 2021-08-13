@@ -30,7 +30,7 @@ require '../snippets/header.php';
   // echo "<br>";
   // print_r($patientsHistory);
   ?>
-  <form action="/nur/vitals.php" method="POST">
+  <form <?=$patientsHistory ? "" : "action='/nur/vitals.php'" ?> method="POST">
     <div class="form-group col-md-6">
       <input type="text" name="patient" id="patientid" class="form-control" readonly value="<?= $patient['cardnumber'] ?>">
     </div>
