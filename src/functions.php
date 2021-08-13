@@ -82,3 +82,9 @@ function parseAppointmentStatus(int $status)
   }
   return $result;
 }
+
+function getPatientType(string $patientid)
+{
+  $category = explode('-', $patientid);
+  return strtolower($category[0]);
+}
