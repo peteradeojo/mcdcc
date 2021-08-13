@@ -1,2 +1,2 @@
 <?php
-echo $patient['filename'];
+require 'card-init.php';
