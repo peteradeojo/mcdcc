@@ -133,4 +133,10 @@
 			}
 		}
 	});
+
+	document.addEventListener('DOMContentLoaded', () => {
+		if (document.querySelector('#appointments-table')) {
+			$('#appointments-table').DataTable();
+		}
+	});
 })();

@@ -152,7 +152,7 @@ require '../snippets/header.php';
         <button type="button" data-bs-dismiss="modal" class="btn-close" aria-label="Close"></button>
       </div>
       <div class="modal-body container">
-        <form action="appointments.php?data=new&id=<?= $patientId ?>" method="post">
+        <form action="book_appointment.php?data=new&id=<?= $patientId ?>" method="post">
           <div class="form-group">
             <label for="id">Patient Number</label>
             <input type="text" name="id" id="id" readonly value="<?= $patientId ?>" class="form-control">

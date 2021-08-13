@@ -19,7 +19,7 @@ if (@$_GET['return'] === 'count') {
       break;
     case 'waitlisted':
       $today = date('Y-m-d');
-      $count = $db->select('appointments', 'count(id) as num', "appointment_date >= '$today' and appointment_status = '1'")[0];
+      $count = $db->select('appointments', 'count(id) as num', "appointment_date >= '$today' and appointment_status <= '2'")[0];
       echo json_encode(['data' => $count]);
   }
 
@@ -127,7 +127,7 @@ switch (@$_GET['data']) {
       $today = date('Y-m-d');
       $waitlist = $db->join(table1: 'appointments', joins: [
         ['inner', 'patients as p', 'appointments.patientid = p.cardnumber'],
-      ], where: "appointments.appointment_date >= '$today' and appointments.appointment_status = '1'");
+      ], where: "appointments.appointment_date >= '$today' and appointments.appointment_status <= '2'");
       $waitlist = array_map(function ($wait) {
         $wait['date'] = $wait['appointment_date'];
         $wait['status'] = parseAppointmentStatus($wait['appointment_status']);

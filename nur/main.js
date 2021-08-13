@@ -22,9 +22,29 @@
 			}
 			data.forEach((datum) => {
 				li += `<li class="list-group-item">
-					<p>${datum.lastname} ${datum.firstname}</p>
-					<p>${datum.date} ${datum.status}</p>
-					<a href="/nur/vitals.php?patient=${datum.cardnumber}" class="btn btn-warning">Take Vital Signs</a>
+					<div class="d-flex align-items-center align-content-center">
+						<div class="col-sm-9">
+							<p>${datum.lastname} ${datum.firstname}</p>
+							<p>${datum.date} ${datum.status}</p>
+						</div>
+						<div class="col-sm-3">
+							${
+								datum.appointment_status < '1'
+									? `<button class="btn btn-danger">Direct to Records</button>`
+									: ''
+							}
+							${
+								datum.appointment_status > '1'
+									? `<a href="/nur/vitals.php?patient=${datum.cardnumber}" class="btn btn-primary">View</a>`
+									: ''
+							}
+							${
+								datum.status == 'Waitlisted'
+									? `<a href="/nur/vitals.php?patient=${datum.cardnumber}" class="btn btn-warning">Take Vital Signs</a>`
+									: ''
+							}
+						</div>
+					</div>
 				</li>
 				`;
 			});

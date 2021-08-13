@@ -119,6 +119,14 @@ class Validator
     return false;
   }
 
+  static function validateNumber(string $number)
+  {
+    if (intval($number) or floatval($number)) {
+      return $number;
+    }
+    return false;
+  }
+
   static function sanitize($string)
   {
     return trim(htmlspecialchars(strip_tags($string)));

@@ -18,7 +18,7 @@ require '../snippets/header.php';
         <div class="card-body">
           <h3>Patients</h3>
           <div>
-            <h1 id="patients">Placeholder</h1>
+            <h1 id="patients"></h1>
           </div>
         </div>
       </a>
@@ -34,9 +34,14 @@ require '../snippets/header.php';
       </a>
     </div>
     <div class="s4 card">
-      <div class="card-body">
-        <h3></h3>
-      </div>
+      <a href="/rec/appointments.php">
+        <div class="card-body">
+          <h3>Appointments</h3>
+          <div>
+            <h1 id="appointments"><?= $db->select(table: 'appointments', rows: 'count(id) as num', where: "appointment_date >= '$today'")[0]['num'] ?></h1>
+          </div>
+        </div>
+      </a>
     </div>
   </div>
 </div>
