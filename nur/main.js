@@ -24,7 +24,7 @@
 				li += `<li class="list-group-item">
 					<div class="d-flex align-items-center align-content-center">
 						<div class="col-sm-9">
-							<p>${datum.lastname} ${datum.firstname}</p>
+							<p>${datum.name}</p>
 							<p>${datum.date} ${datum.status}</p>
 						</div>
 						<div class="col-sm-3">
