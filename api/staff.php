@@ -17,7 +17,7 @@ switch (@$_GET['data']) {
   default:
     $staff = $db->select('staff', 'id, firstname, lastname, email, post, phone, title');
     $staff = array_map(function ($staff) {
-      $staff['name'] = generateName($staff['firstname'], $staff['lastname']);
+      $staff['name'] = generateName($staff);
       return $staff;
     }, $staff);
     echo json_encode(['data' => $staff]);

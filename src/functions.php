@@ -3,6 +3,7 @@
 
 function generateName(array $data = null)
 {
+  $data['middlename'] = @$data['middlename'] ? $data['middlename'] : null;
   return "$data[lastname] $data[firstname] $data[middlename]";
 }
 
