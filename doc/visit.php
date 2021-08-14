@@ -32,16 +32,20 @@ require '../snippets/header.php';
       <h1><?= "$patient[lastname] $patient[firstname]" ?></h1>
       <form action="visit.php" method="post">
         <div class="form-group">
-          <input type="text" name="patient" id="" readonly="readonly" class="form-control" value="<?= $patient['cardnumber'] ?>">
+          <label for="description">Complaint/Description</label>
+          <textarea name="description" id="description" cols="30" class="form-control"></textarea>
         </div>
+        <?php
+        $casenote = getPatientType($patient['cardnumber']);
+        require "forms/$casenote.php";
+        ?>
         <div class="form-group">
           <button type="submit" class="btn btn-success">Submit</button>
         </div>
       </form>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 overflow-auto">
       <?php
-      $casenote = getPatientType($patient['cardnumber']);
       require "casenotes/$casenote.php";
       ?>
     </div>

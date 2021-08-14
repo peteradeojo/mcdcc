@@ -1,5 +1,5 @@
 <div class="container">
-  <h1><?= generateName($staff['firstname'], $staff['lastname']) ?></h1>
+  <h1><?= generateName($staff) ?></h1>
   <form action="/ict/staff.php?id=<?= $staff['id'] ?>" method="post" class="row">
     <div class="form-group col-sm-4">
       <label for="title">Title</label>
