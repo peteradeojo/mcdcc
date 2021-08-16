@@ -21,6 +21,7 @@
 <body>
   <aside id="sidenav">
     <div class="container">
+      <button id="close-sidenav" class="btn btn-dark">Close</button>
       <p><a href="/">Home</a></p>
       <p>Welcome, <?= $user['firstname'] ?></p>
     </div>
@@ -39,9 +40,10 @@
       }
       ?>
       <div class="row">
-        <div class="s9">
+        <div class="col-sm-9">
+          <button id="open-sidenav" class="btn btn-dark">Open</button>
         </div>
-        <div class="s3">
+        <div class="col-sm-3">
           <a href="/logout.php">Log Out</a>
         </div>
       </div>

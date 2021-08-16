@@ -21,7 +21,17 @@ require '../snippets/header.php';
         </div>
       </div>
     </div>
-    <div class="col-sm-4 p-2"></div>
+    <div class="col-sm-4 p-2">
+      <div class="card">
+        <div class="card-header">
+          <h2>Records</h2>
+        </div>
+        <div class="card-body">
+          <p>Records</p>
+          <a href="/ict/records/index.php">Manage</a>
+        </div>
+      </div>
+    </div>
     <div class="col-sm-4 p-2"></div>
   </div>
 </div>
