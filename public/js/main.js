@@ -1,5 +1,15 @@
 'use strict';
 
+const spinnerDiv = document.createElement('div');
+spinnerDiv.appendChild(document.createElement('div'));
+spinnerDiv.classList.add('spinner-image');
+const showSpinner = () => {
+	document.body.appendChild(spinnerDiv);
+};
+const removeSpinner = () => {
+	document.body.removeChild(spinnerDiv);
+};
+
 /**
  *
  * @param {string} url The URL of the request
@@ -58,6 +68,7 @@ const post = async (url, body, headers = {}, mode = 'json') => {
  */
 const checkInForAppointment = async (id, date) => {
 	try {
+		showSpinner();
 		const formdata = new FormData();
 		formdata.append('id', id);
 		formdata.append('date', date);
@@ -66,6 +77,7 @@ const checkInForAppointment = async (id, date) => {
 	} catch (error) {
 		console.error(error);
 	} finally {
+		removeSpinner();
 		location.reload();
 	}
 };

@@ -7,11 +7,14 @@
 			const query = this.query.value;
 			const formdata = new FormData();
 			formdata.append('query', query);
+			showSpinner();
 			try {
 				const data = await post('/ict/records/api/index.php', formdata);
 				console.log(data);
 			} catch (error) {
 				console.error(error);
+			} finally {
+				removeSpinner();
 			}
 		});
 })();
