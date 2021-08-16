@@ -13,7 +13,7 @@ if ($_POST['username']) {
 
   $user = $db->select('staff', "username, password", "username='$user' and password='$pass'")[0];
   if ($user) {
-    $_SESSION['login'] = ['status' => true, 'user'=> $user['username']];
+    $_SESSION['login'] = ['status' => true, 'user' => $user['username']];
     header("Location: /");
   } else {
     header("Location: /login.php");

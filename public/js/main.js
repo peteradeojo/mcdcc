@@ -81,3 +81,20 @@ const loadIntoPlace = (data, destination) => {
 	const dest = document.querySelector(destination);
 	dest.innerHTML = data;
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+	const closeBtn = document.querySelector('.btn#close-sidenav');
+	const openBtn = document.querySelector('.btn#open-sidenav');
+	const sidenav = $('#sidenav');
+	const main = $('main');
+	closeBtn.addEventListener('click', () => {
+		sidenav.hide();
+		main.css('width', '100%');
+		main.css('margin-left', '0');
+	});
+	openBtn.addEventListener('click', () => {
+		sidenav.show();
+		main.css('width', '80%');
+		main.css('margin-left', '20%');
+	});
+});

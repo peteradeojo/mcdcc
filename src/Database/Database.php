@@ -220,6 +220,23 @@ class Database
     }
   }
 
+  function query(string $sql)
+  {
+
+    $query = $this->cxn->query($sql);
+    if (!$query) {
+      throw new Exception($this->getError());
+    }
+    if (@$query->num_rows) {
+      return $query->fetch_all(MYSQLI_ASSOC);
+    } else {
+      if (@$this->cxn->affected_rows) {
+        return $this->cxn->affected_rows;
+      }
+      return $query;
+    }
+  }
+
   function getError()
   {
     return $this->cxn->error;

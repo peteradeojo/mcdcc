@@ -46,3 +46,5 @@ require '../snippets/header.php';
     </div> -->
   </div>
 </div>
+<?php
+require '../snippets/footer.php';
